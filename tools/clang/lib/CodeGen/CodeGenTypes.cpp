@@ -483,7 +483,9 @@ llvm::Type *CodeGenTypes::ConvertType(QualType T) {
 
     // HLSL Change Starts
     case BuiltinType::LinAlgMatrix:
-      llvm_unreachable("LinAlgMatrix codegen is not supported yet");
+      // __builtin_LinAlg_Matrix type without attributes is not a valid LinAlg
+      // Matrix handle
+      ResultType = llvm::Type::getInt8PtrTy(getLLVMContext());
       break;
       // HLSL Change Ends
 
@@ -707,6 +709,13 @@ llvm::Type *CodeGenTypes::ConvertType(QualType T) {
     }
     break;
   }
+  // HLSL Change Starts
+  case Type::AttributedLinAlgMatrix: {
+    ResultType = CGM.getHLSLRuntime().ConvertAttributedLinAlgMatrixType(
+        cast<AttributedLinAlgMatrixType>(Ty));
+    break;
+  }
+    // HLSL Change Ends
   }
   
   assert(ResultType && "Didn't convert a type?");
