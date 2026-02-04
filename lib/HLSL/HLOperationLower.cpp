@@ -6939,9 +6939,6 @@ Value *TranslateLinAlgMatrixStoreToDescriptor(
   IRBuilder<> Builder(CI);
 
   Value *Matrix = CI->getArgOperand(1);
-  DXASSERT_NOMSG(isa<PointerType>(Matrix->getType()));
-  Matrix = Builder.CreateLoad(Matrix);
-
   Value *ResHandle = CI->getArgOperand(2);
   Value *Offset = CI->getArgOperand(3);
   Value *Stride = CI->getArgOperand(4);
@@ -6967,9 +6964,6 @@ Value *TranslateLinAlgMatVecMul(CallInst *CI, IntrinsicOp IOP,
   Type *ReturnVecType = ReturnVecPtr->getType()->getPointerElementType();
 
   Value *Matrix = CI->getArgOperand(2);
-  DXASSERT_NOMSG(isa<PointerType>(Matrix->getType()));
-  Matrix = Builder.CreateLoad(Matrix);
-
   Value *InputVector = CI->getArgOperand(3);
   Value *InputVectorInterp = CI->getArgOperand(4);
 
@@ -6997,9 +6991,6 @@ Value *TranslateLinAlgMatVecMulAdd(CallInst *CI, IntrinsicOp IOP,
   Type *ReturnVecType = ReturnVecPtr->getType()->getPointerElementType();
 
   Value *Matrix = CI->getArgOperand(2);
-  DXASSERT_NOMSG(isa<PointerType>(Matrix->getType()));
-  Matrix = Builder.CreateLoad(Matrix);
-
   Value *InputVector = CI->getArgOperand(3);
   Value *InputVectorInterp = CI->getArgOperand(4);
   Value *BiasVector = CI->getArgOperand(5);
