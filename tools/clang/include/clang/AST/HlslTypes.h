@@ -393,7 +393,6 @@ DeclareConstantBufferViewType(clang::ASTContext &context,
                               clang::InheritableAttr *Attr);
 clang::CXXRecordDecl *DeclareRayQueryType(clang::ASTContext &context);
 clang::CXXRecordDecl *DeclareHitObjectType(clang::NamespaceDecl &NSDecl);
-clang::CXXRecordDecl *DeclareLinAlgMatrixType(clang::ASTContext &Context);
 clang::CXXRecordDecl *DeclareResourceType(clang::ASTContext &context,
                                           bool bSampler);
 
@@ -481,7 +480,6 @@ bool IsHLSLDynamicResourceType(clang::QualType type);
 bool IsHLSLDynamicSamplerType(clang::QualType type);
 bool IsHLSLNodeType(clang::QualType type);
 bool IsHLSLHitObjectType(clang::QualType type);
-bool IsHLSLLinAlgMatrixType(clang::QualType type);
 
 bool IsHLSLObjectWithImplicitMemberAccess(clang::QualType type);
 bool IsHLSLObjectWithImplicitROMemberAccess(clang::QualType type);

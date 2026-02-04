@@ -532,10 +532,6 @@ bool IsHLSLHitObjectType(QualType type) {
   return nullptr != getAttr<HLSLHitObjectAttr>(type);
 }
 
-bool IsHLSLLinAlgMatrixType(clang::QualType type) {
-  return nullptr != getAttr<HLSLLinAlgMatrixAttr>(type);
-}
-
 DXIL::NodeIOKind GetNodeIOType(clang::QualType type) {
   if (const HLSLNodeObjectAttr *Attr = getAttr<HLSLNodeObjectAttr>(type))
     return Attr->getNodeIOType();

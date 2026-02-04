@@ -1195,14 +1195,6 @@ def HLSLHitObject : InheritableAttr {
   let Documentation = [Undocumented];
 }
 
-// HLSL LinAlgMatrix Attribute
-
-def HLSLLinAlgMatrix : InheritableAttr {
-  let Spellings = []; // No spellings!
-  let Subjects = SubjectList<[CXXRecord]>;
-  let Documentation = [Undocumented];
-}
-
 // HLSL Parameter Attributes
 
 def HLSLMaxRecords : InheritableAttr {

@@ -615,15 +615,6 @@ bool IsHLSLHitObjectType(llvm::Type *Ty) {
   return ST->getName() == "dx.types.HitObject";
 }
 
-llvm::Type *GetHLSLLinAlgMatrixType(llvm::Module *M) {
-  using namespace llvm;
-  StructType *MatrixRefTy = M->getTypeByName("dx.types.LinAlgMatrixA0B1C2D3");
-  if (!MatrixRefTy)
-    MatrixRefTy = StructType::create({Type::getInt8PtrTy(M->getContext(), 0)},
-                                     "dx.types.LinAlgMatrixA0B1C2D3", false);
-  return MatrixRefTy;
-}
-
 bool IsHLSLLinAlgMatrixType(llvm::Type *Ty) {
   llvm::StructType *ST = dyn_cast<llvm::StructType>(Ty);
   if (!ST)
