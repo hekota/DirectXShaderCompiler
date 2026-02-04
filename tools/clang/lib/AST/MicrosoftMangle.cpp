@@ -1623,6 +1623,9 @@ void MicrosoftCXXNameMangler::mangleType(const BuiltinType *T, Qualifiers,
   case BuiltinType::UInt8_4Packed:
     Out << "$ui8_4pk@";
     break;
+  case BuiltinType::LinAlgMatrix:
+    Out << "$linalg_matrix@";
+    break;
     // HLSL Change Ends
   }
 }
@@ -2240,6 +2243,23 @@ void MicrosoftCXXNameMangler::mangleType(const AtomicType *T, Qualifiers,
     "cannot mangle this C11 atomic type yet");
   Diags.Report(Range.getBegin(), DiagID)
     << Range;
+}
+
+void MicrosoftCXXNameMangler::mangleType(const AttributedLinAlgMatrixType *T,
+                                         Qualifiers, SourceRange Range) {
+  Out << "$linalg_matrix";
+  T->appendMangledAttributes(Out);
+  Out << "@";
+}
+
+void MicrosoftCXXNameMangler::mangleType(
+    const DependentAttributedLinAlgMatrixType *T, Qualifiers,
+    SourceRange Range) {
+  DiagnosticsEngine &Diags = Context.getDiags();
+  unsigned DiagID = Diags.getCustomDiagID(
+      DiagnosticsEngine::Error, "cannot mangle this dependent-sized HLSL "
+                                "attributed linear algebra matrix type yet");
+  Diags.Report(Range.getBegin(), DiagID) << Range;
 }
 
 void MicrosoftMangleContextImpl::mangleCXXName(const NamedDecl *D,
