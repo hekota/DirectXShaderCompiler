@@ -21,11 +21,17 @@ void main(uint ID : SV_GroupID) {
   MatrixATy Mat1 = MatrixATy::Load<MatrixLayoutEnum::ColMajor>(BAB, 0, 8);
 
   vector<half, 4> vec1 = 10.3f;
+  vector<int, 4> vec1_int = 10;
 
 // CHECK: %[[VEC2:.*]] = call <8 x half> @dx.op.linAlgMatVecMul.v8f16.mC8M8N4U0S0.v4f16(i32 -2147483623,
 // CHECK-SAME: %dx.types.LinAlgMatrixC8M8N4U0S0 %[[MAT1]], i1 true, <4 x half> <half 0xH4926, half 0xH4926, half 0xH4926,
 // CHECK-SAME: half 0xH4926>, i32 8) ; LinAlgMatVecMul(matrix,isOutputSigned,inputVector,interpretation)
   vector<half, 8> vec2 = Multiply<half>(Mat1, vec1);
+
+// CHECK: call <8 x half> @dx.op.linAlgMatVecMul.v8f16.mC8M8N4U0S0.v4i32(i32 -2147483623,
+// CHECK-SAME: %dx.types.LinAlgMatrixC8M8N4U0S0 %[[MAT1]], i1 true, <4 x i32> <i32 10, i32 10, i32 10, i32 10>, i32 4)
+// CHECK-SAME: ; LinAlgMatVecMul(matrix,isOutputSigned,inputVector,interpretation)
+  vector<half, 8> vec2b = Multiply<half>(Mat1, vec1_int);
 
 // CHECK: %[[VEC3:.*]] = call <8 x half> @dx.op.linAlgMatVecMulAdd.v8f16.mC8M8N4U0S0.v4f16.v8f16(i32 -2147483622,
 // CHECK-SAME: %dx.types.LinAlgMatrixC8M8N4U0S0 %[[MAT1]], i1 true, <4 x half> <half 0xH4926, half 0xH4926, half 0xH4926,

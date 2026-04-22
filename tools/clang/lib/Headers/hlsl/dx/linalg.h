@@ -499,7 +499,7 @@ Multiply(Matrix<MatrixDT, M, K, MatrixUse::A, MatrixScope::Thread> MatrixA,
   vector<OutputElTy, M> Result;
   __builtin_LinAlg_MatrixVectorMultiply(Result, MatrixA.__handle,
                                         hlsl::is_signed<OutputElTy>::value, Vec,
-                                        MatrixDT);
+                                        __detail::TypeTraits<InputElTy>::CompType);
   return Result;
 }
 
